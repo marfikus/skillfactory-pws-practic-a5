@@ -1,7 +1,8 @@
 
 $(document).ready(function() {
 
-	let receivedText = 0; // 
+	let receivedText = 0; // то, что приняли
+	let resultText = 0; // то, что будет выводиться на странице
 	let fields = []; // общий массив найденных полей
 
 	$.getJSON(
@@ -40,7 +41,7 @@ $(document).ready(function() {
 
 							// ну и создаём поле в форме:
 							let fieldName = curStrField.substr(1, curStrField.length-2);
-							$(".data-inputs").append(`<input type="text" name="${fieldName}" placeholder="${fieldName}">`);
+							$(".data-inputs").append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
 						}
 					}
 					// fields = fields.concat(curStrFields);
@@ -48,13 +49,17 @@ $(document).ready(function() {
 			}
 			console.log(fields.length);
 			console.log(fields);
+
+			// собираем строки принятого массива в общий текст:
+			resultText = receivedText.join(' ');
+			console.log(resultText);
+			$('.result').text(resultText);
 		}
 	);
 
 	$(".btn-create-text").click(function() {
 		// собираем строки принятого массива в общий текст:
-		let resultText = receivedText.join(' ');
-		console.log(resultText);
+		resultText = receivedText.join(' ');
 
 		// и заменяем поля текста на значения из полей формы:
 		for (let field of fields) {
