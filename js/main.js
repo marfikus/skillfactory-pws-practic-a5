@@ -25,11 +25,11 @@ $(document).ready(function() {
 				// const regexp = new RegExp("\{+\}", "ig");
 				// curStrFields = receivedText[0].match(/{(.[^{}]+)}/ig);
 				curStrFields = str.match(/{(.[^{}]+)}/ig);
-				console.log(curStrFields);
+				// console.log(curStrFields);
 
 				// если результат есть:
 				if (curStrFields !== null) {
-					console.log(curStrFields.length);
+					// console.log(curStrFields.length);
 
 					// добавляем найденные поля в общий массив,
 					// попутно фильтруя повторяющиеся поля:
@@ -54,12 +54,12 @@ $(document).ready(function() {
 					// fields = fields.concat(curStrFields);
 				}
 			}
-			console.log(fields.length);
-			console.log(fields);
+			// console.log(fields.length);
+			// console.log(fields);
 
 			// собираем строки принятого массива в общий текст:
 			resultText = receivedText.join(' ');
-			console.log(resultText);
+			// console.log(resultText);
 			$result.text(resultText);
 
 			// разлочиваем кнопку:
@@ -75,10 +75,10 @@ $(document).ready(function() {
 		for (let field of fields) {
 			let fieldName = field.substr(1, field.length-2);
 			let fiedlValue = $(`input[name=${fieldName}]`).val();
-			console.log('fiedlValue:', fiedlValue);
+			// console.log('fiedlValue:', fiedlValue);
 			resultText = resultText.replace(new RegExp(field,'g'), fiedlValue);
 		}
-		console.log(resultText);
+		// console.log(resultText);
 
 		$result.text(resultText);
 	});
