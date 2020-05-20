@@ -6,7 +6,7 @@ $(document).ready(function() {
 	let fields = []; // общий массив найденных полей
 
 	$.getJSON(
-		"https://api.jsonbin.io/b/5e905926172eb643896166e7",
+		'https://api.jsonbin.io/b/5e905926172eb643896166e7',
 		function(data) {
 			receivedText = data.text;
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 							// ну и создаём поле в форме:
 							let fieldName = curStrField.substr(1, curStrField.length-2);
-							$(".data-inputs").append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
+							$('.data-inputs').append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
 						}
 					}
 					// fields = fields.concat(curStrFields);
@@ -54,10 +54,13 @@ $(document).ready(function() {
 			resultText = receivedText.join(' ');
 			console.log(resultText);
 			$('.result').text(resultText);
+
+			// разлочиваем кнопку:
+			$('.btn-create-text').removeAttr('disabled');
 		}
 	);
 
-	$(".btn-create-text").click(function() {
+	$('.btn-create-text').click(function() {
 		// собираем строки принятого массива в общий текст:
 		resultText = receivedText.join(' ');
 
@@ -65,7 +68,7 @@ $(document).ready(function() {
 		for (let field of fields) {
 			let fieldName = field.substr(1, field.length-2);
 			let fiedlValue = $(`input[name=${fieldName}]`).val();
-			console.log("fiedlValue:", fiedlValue);
+			console.log('fiedlValue:', fiedlValue);
 			resultText = resultText.replace(new RegExp(field,'g'), fiedlValue);
 		}
 		console.log(resultText);
