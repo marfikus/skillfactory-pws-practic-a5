@@ -1,2 +1,16 @@
+.col h1 {
+	margin-bottom: 20px;
+}
 
+.data-inputs {
+	display: flex;
+	flex-direction: column;
+}
 
+.data-inputs input {
+	margin-bottom: 10px;
+}
+
+.btn-create-text {
+	margin: 10px 0;
+}
