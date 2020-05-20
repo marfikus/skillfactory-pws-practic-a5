@@ -5,10 +5,17 @@ $(document).ready(function() {
 	let resultText = 0; // то, что будет выводиться на странице
 	let fields = []; // общий массив найденных полей
 
+	let $dataInputs = $('.data-inputs'); // блок для полей ввода
+	let $result = $('.result'); // блок для вывода текста
+	let $btnCreateText = $('.btn-create-text'); // кнопка замены полей в тексте
+
 	$.getJSON(
-		"https://api.jsonbin.io/b/5e905926172eb643896166e7",
+		'https://api.jsonbin.io/b/5e905926172eb643896166e7',
 		function(data) {
 			receivedText = data.text;
+
+			// убираем индикатор загрузки:
+			$('.loading-indicator').remove();
 
 			let curStrFields = 0; // поля найденные в текущей строке
 
@@ -18,11 +25,11 @@ $(document).ready(function() {
 				// const regexp = new RegExp("\{+\}", "ig");
 				// curStrFields = receivedText[0].match(/{(.[^{}]+)}/ig);
 				curStrFields = str.match(/{(.[^{}]+)}/ig);
-				console.log(curStrFields);
+				// console.log(curStrFields);
 
 				// если результат есть:
 				if (curStrFields !== null) {
-					console.log(curStrFields.length);
+					// console.log(curStrFields.length);
 
 					// добавляем найденные поля в общий массив,
 					// попутно фильтруя повторяющиеся поля:
@@ -41,23 +48,26 @@ $(document).ready(function() {
 
 							// ну и создаём поле в форме:
 							let fieldName = curStrField.substr(1, curStrField.length-2);
-							$(".data-inputs").append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
+							$dataInputs.append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
 						}
 					}
 					// fields = fields.concat(curStrFields);
 				}
 			}
-			console.log(fields.length);
-			console.log(fields);
+			// console.log(fields.length);
+			// console.log(fields);
 
 			// собираем строки принятого массива в общий текст:
 			resultText = receivedText.join(' ');
-			console.log(resultText);
-			$('.result').text(resultText);
+			// console.log(resultText);
+			$result.text(resultText);
+
+			// разлочиваем кнопку:
+			$btnCreateText.removeAttr('disabled');
 		}
 	);
 
-	$(".btn-create-text").click(function() {
+	$btnCreateText.click(function() {
 		// собираем строки принятого массива в общий текст:
 		resultText = receivedText.join(' ');
 
@@ -65,12 +75,12 @@ $(document).ready(function() {
 		for (let field of fields) {
 			let fieldName = field.substr(1, field.length-2);
 			let fiedlValue = $(`input[name=${fieldName}]`).val();
-			console.log("fiedlValue:", fiedlValue);
+			// console.log('fiedlValue:', fiedlValue);
 			resultText = resultText.replace(new RegExp(field,'g'), fiedlValue);
 		}
-		console.log(resultText);
+		// console.log(resultText);
 
-		$('.result').text(resultText);
+		$result.text(resultText);
 	});
 });
 
