@@ -5,7 +5,9 @@ $(document).ready(function() {
 	let resultText = 0; // то, что будет выводиться на странице
 	let fields = []; // общий массив найденных полей
 
-
+	let $dataInputs = $('.data-inputs'); // блок для полей ввода
+	let $result = $('.result'); // блок для вывода текста
+	let $btnCreateText = $('.btn-create-text'); // кнопка замены полей в тексте
 
 	$.getJSON(
 		'https://api.jsonbin.io/b/5e905926172eb643896166e7',
@@ -46,7 +48,7 @@ $(document).ready(function() {
 
 							// ну и создаём поле в форме:
 							let fieldName = curStrField.substr(1, curStrField.length-2);
-							$('.data-inputs').append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
+							$dataInputs.append(`<input type="text" name="${fieldName}" placeholder="${fieldName}" required>`);
 						}
 					}
 					// fields = fields.concat(curStrFields);
@@ -58,14 +60,14 @@ $(document).ready(function() {
 			// собираем строки принятого массива в общий текст:
 			resultText = receivedText.join(' ');
 			console.log(resultText);
-			$('.result').text(resultText);
+			$result.text(resultText);
 
 			// разлочиваем кнопку:
-			$('.btn-create-text').removeAttr('disabled');
+			$btnCreateText.removeAttr('disabled');
 		}
 	);
 
-	$('.btn-create-text').click(function() {
+	$btnCreateText.click(function() {
 		// собираем строки принятого массива в общий текст:
 		resultText = receivedText.join(' ');
 
@@ -78,7 +80,7 @@ $(document).ready(function() {
 		}
 		console.log(resultText);
 
-		$('.result').text(resultText);
+		$result.text(resultText);
 	});
 });
 
