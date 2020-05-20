@@ -5,10 +5,15 @@ $(document).ready(function() {
 	let resultText = 0; // то, что будет выводиться на странице
 	let fields = []; // общий массив найденных полей
 
+
+
 	$.getJSON(
 		'https://api.jsonbin.io/b/5e905926172eb643896166e7',
 		function(data) {
 			receivedText = data.text;
+
+			// убираем индикатор загрузки:
+			$('.loading-indicator').remove();
 
 			let curStrFields = 0; // поля найденные в текущей строке
 
